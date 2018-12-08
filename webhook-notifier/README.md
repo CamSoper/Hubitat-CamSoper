@@ -1,4 +1,4 @@
-# Webhook Notifier Connect
+# Webhook Notifier
 
 This is a thing I adapted to create a "speech" device in Hubitat that pushes the message to a webhook. 
 
