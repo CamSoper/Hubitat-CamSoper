@@ -12,7 +12,7 @@ What webhook? Any webhook that expects a simple payload. So probably not Discord
   * **Webhook URL** - The URL you're posting the webhook to with an HTTP POST.
   * **JSON Property Name** - The name of the property holding the message in the JSON payload. For IFTTT, this will be `value1`. For other services, it varies. Often, as in the case of Azure Functions and Logic Apps, you can name it yourself.
   * **Prefix Text** - If you want to append something like "Hubitat says" or "Message from Hubitat". A space will be inserted between this and your payload.
-  * **Remove Hyphens** - I like to use the Maker API for a lot of personal projects, and the only way I've found to pass spaces in a string for speaking is as hyphens. So I added this switch to replace the hyphens with spaces so the text is more readable.
+  * **Replace Hyphens** - I like to use the Maker API for a lot of personal projects, and the only way I've found to pass spaces in a string for speaking is as hyphens. So I added this switch to replace the hyphens with spaces so the text is more readable.
 
 That's it! Now you can use all kinds of services to sling your notifications. I have personally tested it with IFTTT, SmartThings via a custom rule in CORE, and Azure Logic Apps.
 
