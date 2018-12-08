@@ -15,7 +15,12 @@
  *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
  *  for the specific language governing permissions and limitations under the License.
  *
+ *
+ * Changelog:
+ * 1.01 12/7/2018 - Added an option to remove hyphens for use with Maker API 
+ *
  */
+ 
 definition(
     name: "Webhook Notifier Connect",
     namespace: "camthegeek",
@@ -28,7 +33,7 @@ definition(
 
 
 preferences {
-    state.version = "1.0"
+    state.version = "1.01"
     page name: "enterUrl"
 }
 
@@ -49,6 +54,9 @@ def enterUrl() {
         }
         section("Enter an optional prefix for your message (such as 'Hubitat says'). No trailing space required.") {
             input "prefixText", "text", title: "Message Prefix", required: false
+        }
+        section("Replace hyphens with spaces? (this is a workaround for use with Maker API)") {
+            input "replaceHyphens", "bool", title: "Replace Hyphens?"
         }
     }
 }
@@ -75,6 +83,7 @@ def initialize() {
 	state.webhookUrl = settings.webhookUrl
     state.valueName = settings.valueName
     state.prefixText = settings.prefixText
+    state.replaceHyphens = settings.replaceHyphens
     state.speak = false
 }
 
@@ -90,6 +99,11 @@ private removeChildDevices(delete) {
 
 def speak(message) {
     state.speak = false
+    if(replaceHyphens)
+    {
+        log.debug "Replacing hyphens. Original message: ${message}"
+        message = message.replace("-", " ")
+    }
     log.debug "speak message: $message, url: ${state.webhookUrl}" 
        
     def successClosure = { response ->
